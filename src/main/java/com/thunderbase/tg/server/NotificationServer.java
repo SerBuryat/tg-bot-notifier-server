@@ -4,6 +4,7 @@ import static io.netty.handler.codec.http.HttpHeaderNames.CONTENT_TYPE;
 import static io.netty.handler.codec.http.HttpHeaderValues.APPLICATION_JSON;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.thunderbase.tg.config.Configs;
 import com.thunderbase.tg.notifier.Notification;
 import com.thunderbase.tg.notifier.Notifier;
 import reactor.core.publisher.Mono;
@@ -13,12 +14,8 @@ import reactor.netty.http.server.logging.AccessLog;
 
 public class NotificationServer {
 
-    // todo - make customizable via envs or props
     private static final int DEFAULT_PORT = 8081;
-    // todo - make customizable via envs or props
-    private static final String TOKEN =
-            "7316336271:AAG0NaaWgICS5HJgs6CGXOGr_DiWxm7gcTM";
-    private static final Notifier TG_NOTIFIER = new Notifier(TOKEN);
+    private static final Notifier TG_NOTIFIER = new Notifier(Configs.BOT_TOKEN);
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     public static void main(String[] args) {

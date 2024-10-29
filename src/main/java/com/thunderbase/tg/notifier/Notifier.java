@@ -8,7 +8,6 @@ import java.nio.file.Path;
 import java.time.OffsetDateTime;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
-import reactor.util.function.Tuple2;
 
 public class Notifier {
 
@@ -35,7 +34,8 @@ public class Notifier {
                         chatId, ntf.title() + " \n" + ntf.msg(), file.toString()
                 )
                 // todo - handle errors and remove temporary file properly
-                .onErrorReturn("Can't send notification")
+                .log()
+                .onErrorReturn("Can't send notification. Check log.")
                 .flatMap(resp ->
                         removeNotificationDetailsFile(file).thenReturn(resp)
                 )
