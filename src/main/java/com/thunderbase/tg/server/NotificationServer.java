@@ -14,16 +14,10 @@ import reactor.netty.http.server.logging.AccessLog;
 
 public class NotificationServer {
 
-    private static final int DEFAULT_PORT = 8081;
     private static final Notifier TG_NOTIFIER = new Notifier(Configs.BOT_TOKEN);
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
-    public static void main(String[] args) {
-        var server = new NotificationServer();
-        server.start(DEFAULT_PORT);
-    }
-
-    private void start(int port) {
+    public void start(int port) {
         var server = HttpServer.create()
                 .accessLog(true,
                         logArgs ->
