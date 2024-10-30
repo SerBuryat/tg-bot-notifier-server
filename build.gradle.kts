@@ -1,9 +1,11 @@
 plugins {
     id("java")
+    id("com.github.johnrengelman.shadow") version "7.1.2"
+    application
 }
 
 group = "com.thunderbase.tg"
-version = "1.0-SNAPSHOT"
+version = "0.1"
 
 repositories {
     mavenCentral()
@@ -35,6 +37,16 @@ dependencies {
 
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
+}
+
+application {
+    mainClass.set("com.thunderbase.tg.Run") // Replace with your main class
+}
+
+tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
+    archiveBaseName.set("tg-bot-notifier-server-$version")
+    archiveClassifier.set("")
+    archiveVersion.set("")
 }
 
 tasks.test {

@@ -1,0 +1,9 @@
+version: "3.8"
+services:
+  tg-bot-notifier-server:
+    image: tg-bot-notifier-server:latest
+    container_name: tg-bot-notifier-server
+    env_file:
+      - prod.env
+    ports:
+      - "8081:8081"
