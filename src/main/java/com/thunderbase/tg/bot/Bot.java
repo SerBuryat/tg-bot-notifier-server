@@ -63,7 +63,8 @@ public class Bot {
                 headers -> headers.add(CONTENT_TYPE, MULTIPART_FORM_DATA),
                 Map.of(
                         "chat_id", chatId,
-                        "caption", title
+                        "caption", title,
+                        "parse_mode", "html"
                 ),
                 Map.of(
                         "document", new File(filePath)
