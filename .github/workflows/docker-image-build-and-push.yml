@@ -1,4 +1,4 @@
-name: tg-bot-notifier-server deploy
+name: tg-bot-notifier-server docker image build and push
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  build:
+  build-and-push-docker-image:
     runs-on: ubuntu-latest
 
     steps:
