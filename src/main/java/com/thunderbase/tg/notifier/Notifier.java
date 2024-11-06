@@ -19,10 +19,10 @@ public class Notifier {
         this.mapper = new ObjectMapper();
     }
 
-    public Mono<String> send(String chatId, Notification ntf) {
+    public Mono<String> send(Notification ntf) {
         return Mono.just(
                 new TgErrorNotification(
-                        ntf.title(),
+                        ntf.chatId(),
                         ntf.msg(),
                         OffsetDateTime.now().toLocalDateTime().toString(),
                         ntf.details()
@@ -31,7 +31,7 @@ public class Notifier {
         .flatMap(this::createNotificationDetailsFile)
         .flatMap(file ->
                 bot.sendDocument(
-                        chatId, ntf.title() + " \n" + ntf.msg(), file.toString()
+                                ntf.chatId(), ntf.msg(), file.toString()
                 )
                 // todo - handle errors and remove temporary file properly
                 .log()
@@ -62,7 +62,7 @@ public class Notifier {
                 .subscribeOn(Schedulers.boundedElastic());
     }
 
-    record TgErrorNotification(String name,
+    record TgErrorNotification(String chatId,
                                String msg,
                                String timestamp,
                                Object details) {

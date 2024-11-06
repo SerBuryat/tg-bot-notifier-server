@@ -34,22 +34,16 @@ public class NotificationServer {
                                     resp.sendString(Mono.just("Ready for work!"))
                     );
                     routes.post(
-                            "/send-notification/{chatId}",
+                            "/send-notification",
                             (req, resp) -> {
                                 var notification = req.receive()
                                         .aggregate()
                                         .asByteArray()
                                         .flatMap(this::getNotificationFromBody);
 
-                                var chatId = req.param("chatId");
-                                if (chatId == null || chatId.isBlank()) {
-                                    return resp.status(400)
-                                            .sendString(Mono.just("Missing 'chatId' path variable"));
-                                }
-
                                 return resp.header(CONTENT_TYPE, APPLICATION_JSON)
                                         .sendString(
-                                                notification.flatMap(ntf -> TG_NOTIFIER.send(chatId, ntf))
+                                                notification.flatMap(TG_NOTIFIER::send)
                                         );
                             }
                     );

@@ -1,5 +1,5 @@
 package com.thunderbase.tg.notifier;
 
-public record Notification(String title, String msg, Object details) {
+public record Notification(String chatId, String msg, Object details) {
 
 }
