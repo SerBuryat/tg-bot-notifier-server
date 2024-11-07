@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - master
-  env:
-    CLOUD_RU_ARTIFACT_REGISTRY_URI: thunder-tech-artifacts.cr.cloud.ru
+env:
+  CLOUD_RU_ARTIFACT_REGISTRY_URI: thunder-tech-artifacts.cr.cloud.ru
 
 jobs:
   build-and-push-docker-image:
