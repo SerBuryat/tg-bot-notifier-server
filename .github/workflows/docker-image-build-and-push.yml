@@ -4,14 +4,17 @@ on:
   push:
     branches:
       - master
+  env:
+    CLOUD_RU_ARTIFACT_REGISTRY_URI: thunder-tech-artifacts.cr.cloud.ru
 
 jobs:
   build-and-push-docker-image:
     runs-on: ubuntu-latest
 
+# todo - build and push to Cloud.ru Artifact Registry
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -19,15 +22,33 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          registry: ${{ env.CLOUD_RU_ARTIFACT_REGISTRY_URI }}
+          username: ${{ secrets.CLOUD_RU_KEY_ID }}
+          password: ${{ secrets.CLOUD_RU_KEY_SECRET }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
           context: .
           push: true
-          tags: serburyat/tg-bot-notifier-server:latest
+          tags: ${{ env.CR_URI }}/tg-bot-notifier-server:latest
+
+# todo - build and push to Dockerhub
+#      - name: Set up Docker Buildx
+#        uses: docker/setup-buildx-action@v2
+#
+#      - name: Log in to Docker Hub
+#        uses: docker/login-action@v2
+#        with:
+#          username: ${{ secrets.DOCKER_USERNAME }}
+#          password: ${{ secrets.DOCKER_PASSWORD }}
+#
+#      - name: Build and push Docker image
+#        uses: docker/build-push-action@v3
+#        with:
+#          context: .
+#          push: true
+#          tags: serburyat/tg-bot-notifier-server:latest
 
 # todo - deploy to VDS
 #  deploy:
