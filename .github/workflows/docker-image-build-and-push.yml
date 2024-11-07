@@ -31,7 +31,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ env.CR_URI }}/tg-bot-notifier-server:latest
+          tags: ${{ env.CLOUD_RU_ARTIFACT_REGISTRY_URI }}/tg-bot-notifier-server:latest
 
 # todo - build and push to Dockerhub
 #      - name: Set up Docker Buildx
