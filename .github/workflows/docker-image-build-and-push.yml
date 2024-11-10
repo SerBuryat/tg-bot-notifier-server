@@ -33,4 +33,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ env.GITHUB_PACKAGES_REGISTRY_URI }}/tg-bot-notifier-server:latest
+          tags: ${{ env.GITHUB_PACKAGES_REGISTRY_URI }}/serburyat/tg-bot-notifier-server:latest
