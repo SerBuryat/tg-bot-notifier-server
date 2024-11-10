@@ -6,7 +6,6 @@ on:
       - github-packages-push
 env:
   GITHUB_PACKAGES_REGISTRY_URI: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   build-and-push-docker-image:
@@ -34,4 +33,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ env.IMAGE_NAME}}
+          tags: ${{ env.GITHUB_PACKAGES_REGISTRY_URI }}/${{ github.repository }}:latest
